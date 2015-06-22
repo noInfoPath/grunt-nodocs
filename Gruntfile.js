@@ -15,11 +15,11 @@ module.exports = function(grunt) {
 
     // Configuration to be run (and then tested).
     noDocs: {
-      ballers: {
+      internal: {
         options: {
           noSrc: 'test.js',
           noDest: 'test.md',
-          noStart: ['/*@', '/*#']
+          noStart: ['/**']
         }
       }
     },

@@ -1,6 +1,6 @@
 /*
  * grunt-nodocs
- * @version 0.0.1
+ * @version 0.0.2
  * https://github.com/Ryan/temp
  *
  * Copyright (c) 2015 ryeguyimg
@@ -40,7 +40,7 @@ module.exports = function(grunt) {
       for(var l in noContent){
         var line = noContent[l].trim();
 
-        if(line.indexOf(noStart[i]) > -1){
+        if(line === noStart[i]){
           noIsWriting = true;
         }
 
