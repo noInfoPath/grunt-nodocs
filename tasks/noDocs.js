@@ -1,6 +1,6 @@
 /*
  * grunt-temp
- * @version 0.0.0
+ * @version 0.0.1
  * https://github.com/Ryan/temp
  *
  * Copyright (c) 2015 ryeguyimg
