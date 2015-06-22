@@ -1,5 +1,5 @@
 /*
- * grunt-noDocs
+ * grunt-nodocs
  * 
  *
  * Copyright (c) 2015 IMG

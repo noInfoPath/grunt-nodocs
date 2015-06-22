@@ -1,5 +1,5 @@
 /*
- * grunt-temp
+ * grunt-nodocs
  * @version 0.0.1
  * https://github.com/Ryan/temp
  *
