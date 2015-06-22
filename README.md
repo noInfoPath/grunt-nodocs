@@ -42,6 +42,36 @@ noDocs fucntion(){
 
 #### Options
 
-#### noSrc
+##### noSrc
+Type: `String`
 
+The file path of the source file.
 
+##### noDest
+Type: `String`
+
+The file path for the destination of the output file.
+
+##### noStart
+Type: `[String]`
+
+Starting line of comment block. Can be used to distinguish comments that are meant for internal use and comments for external use
+
+## Example
+
+### Example config:
+
+```js
+  grunt.initConfig({
+
+    noDocs: {
+      internal: {               // Task
+        options: {              // Options
+          noSrc: 'src.js',     // Source Location
+          noDest: 'dest.md',    // Destination Location
+          noStart: ['/*@']      // How the code block starts. Can be used to distinguish between internal and external comments
+        }
+      }
+    }
+  });
+```
