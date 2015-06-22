@@ -3,7 +3,7 @@
 ### Installation 
 
 ```
-npm install grunt-docs --save-dev
+npm install grunt-nodocs --save-dev
 ```
 
 ### NpmTask
@@ -74,4 +74,6 @@ Starting line of comment block. Can be used to distinguish comments that are mea
       }
     }
   });
+  
+  loadNpmTasks('grunt-nodocs');
 ```
