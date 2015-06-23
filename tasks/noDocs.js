@@ -1,6 +1,6 @@
 /*
  * grunt-nodocs
- * @version 0.0.2
+ * @version 0.0.3
  * https://github.com/Ryan/temp
  *
  * Copyright (c) 2015 ryeguyimg
@@ -10,10 +10,6 @@
 'use strict';
 
 module.exports = function(grunt) {
-
-  // Please see the Grunt documentation for more information regarding task
-  // creation: http://gruntjs.com/creating-tasks
-
   /*
 
   ## Parameters
@@ -36,22 +32,20 @@ module.exports = function(grunt) {
         noLine = "\n",
         noStart = start;
 
-    for(var i in noStart){
-      for(var l in noContent){
-        var line = noContent[l].trim();
+    for(var l in noContent){
+      var line = noContent[l].trim();
 
-        if(line === noStart[i]){
-          noIsWriting = true;
-        }
+      if(line === start){
+        noIsWriting = true;
+      }
 
-        if(line.indexOf(noEnd) > -1){
-          noIsWriting = false;
-        }
+      if(line.indexOf(noEnd) > -1){
+        noIsWriting = false;
+      }
 
-        if(noIsWriting){
-          if(line.indexOf(noStart[i]) === -1){
-            noDoc = noDoc + line + noLine;
-          }
+      if(noIsWriting){
+        if(line.indexOf(start) === -1){
+          noDoc = noDoc + line + noLine;
         }
       }
     }
@@ -65,7 +59,7 @@ module.exports = function(grunt) {
     //Grab all options specified by the user
     var options = this.options();
 
-    //Uses specified Source(noSrc), Destination(noDest), and Starting comment syntax(noStart)
-    noDocs(options.noSrc, options.noDest, options.noStart);
+    //Uses specified Source(src), Destination(dest), and Starting comment syntax(start)
+    noDocs(options.src, options.dest, options.start);
   });
 };

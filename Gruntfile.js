@@ -17,9 +17,9 @@ module.exports = function(grunt) {
     noDocs: {
       internal: {
         options: {
-          noSrc: 'test.js',
-          noDest: 'test.md',
-          noStart: ['/**']
+          src: 'test.js',
+          dest: 'test.md',
+          start: '/**'
         }
       }
     },

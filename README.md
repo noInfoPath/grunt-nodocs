@@ -77,3 +77,8 @@ Starting line of comment block. Can be used to distinguish comments that are mea
   
   loadNpmTasks('grunt-nodocs');
 ```
+
+# Release History:
+2015-06-23 v0.0.3 Removed outer for loop for [start] and changed [start] to just a start string
+2015-06-22 v0.0.2 Fixed a bug with checking for start of comment block 
+2015-06-22 v0.0.1 Initial Release
