@@ -67,9 +67,9 @@ Starting line of comment block. Can be used to distinguish comments that are mea
     noDocs: {
       internal: {               // Task
         options: {              // Options
-          noSrc: 'src.js',     // Source Location
-          noDest: 'dest.md',    // Destination Location
-          noStart: ['/*@']      // How the code block starts. Can be used to distinguish between internal and external comments
+          src: 'src.js',        // Source Location
+          dest: 'dest.md',      // Destination Location
+          start: '/**'          // How the code block starts.
         }
       }
     }
@@ -79,6 +79,7 @@ Starting line of comment block. Can be used to distinguish comments that are mea
 ```
 
 # Release History:
+2015-06-23 v0.0.4 Updated bugs in example config
 2015-06-23 v0.0.3 Removed outer for loop for [start] and changed [start] to just a start string
 2015-06-22 v0.0.2 Fixed a bug with checking for start of comment block 
 2015-06-22 v0.0.1 Initial Release
