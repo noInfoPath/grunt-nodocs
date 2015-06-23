@@ -1,6 +1,6 @@
 /*
  * grunt-nodocs
- * @version 0.0.4
+ * @version 0.0.5
  * https://github.com/Ryan/temp
  *
  * Copyright (c) 2015 ryeguyimg

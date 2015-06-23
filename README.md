@@ -15,13 +15,29 @@ grunt.loadNpmTasks('grunt-nodocs');
 ## noDocs Task
 Run this task with the `grunt noDocs` command.
 
-noDocs was created to satisfy the need to grab blocks of comments out of source files. First and foremost noDocs allows the user to simply grab the comments they have written and put them in a seperate file with an extention of their choice(we wrote this for MD purposes), but secondly the user is able to determine to whom the comments are shown to. We give the user the optiton to include multiple comments "noStart" as they're called to determine which comments are internal and external.
+noDocs was created to satisfy the need to grab blocks of comments out of source files. First and foremost noDocs allows the user to simply grab the comments they have written and put them in a seperate file with an extention of their choice(we wrote this for MD purposes), but secondly the user is able to determine to whom the comments are shown to.
 
 With markdown being the sole method of writing proper documentation, we assume and encourage the user to write their comments in markdown fashion. The only peice that is required is that you start and end the comment block with the following tags:
 
 ```js
 /*
 
+
+*/
+```
+
+But you can easily add to the starting line of your block comment to differentiate between internal and external comments:
+
+Internal:
+```
+/*$
+
+*/
+```
+
+External:
+```
+/*@
 
 */
 ```
@@ -39,21 +55,20 @@ noDocs fucntion(){
 }
 ```
 
-
 #### Options
 
-##### noSrc
+##### src
 Type: `String`
 
 The file path of the source file.
 
-##### noDest
+##### dest
 Type: `String`
 
 The file path for the destination of the output file.
 
-##### noStart
-Type: `[String]`
+##### start
+Type: `String`
 
 Starting line of comment block. Can be used to distinguish comments that are meant for internal use and comments for external use
 
@@ -79,7 +94,8 @@ Starting line of comment block. Can be used to distinguish comments that are mea
 ```
 
 # Release History:
-2015-06-23 v0.0.4 Updated bugs in example config
-2015-06-23 v0.0.3 Removed outer for loop for [start] and changed [start] to just a start string
-2015-06-22 v0.0.2 Fixed a bug with checking for start of comment block 
-2015-06-22 v0.0.1 Initial Release
+ - 2015-06-23 v0.0.5 Updated documentation...words can be hard.
+ - 2015-06-23 v0.0.4 Updated bugs in example config
+ - 2015-06-23 v0.0.3 Removed outer for loop for [start] and changed [start] to just a start string
+ - 2015-06-22 v0.0.2 Fixed a bug with checking for start of comment block 
+ - 2015-06-22 v0.0.1 Initial Release
