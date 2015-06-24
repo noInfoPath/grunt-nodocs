@@ -19,7 +19,8 @@ module.exports = function(grunt) {
         options: {
           src: 'test.js',
           dest: 'test.md',
-          start: '/**'
+          start: ['/**', '/*'],
+          tableofcontents: ['@Class','@Function']
         }
       }
     },
