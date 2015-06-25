@@ -3,7 +3,7 @@
  * @version 0.0.6
  * https://github.com/Ryan/temp
  *
- * Copyright (c) 2015 ryeguyimg
+ * Copyright (c) 2015 The NoInfoPath Group, llc.
  * Licensed under the MIT license.
  */
 
