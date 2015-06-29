@@ -15,25 +15,18 @@ module.exports = function(grunt) {
 
     // Configuration to be run (and then tested).
     noDocs: {
-      nodata: {
-        options: {
-          src: 'src/noinfopath-data.js',
-          dest: 'docs/noinfopath-data.md',
-          start: ['/**', '/*']
+      internal: {                                 // Task
+        options: {                                // Options
+          src: 'test/src.js',                          // Source Location  
+          dest: 'internal.md',                    // Destination Location
+          start: ['/*','/**']                     // How the code block starts.
         }
       },
-      nokendo: {
-        options: {
-          src: 'src/noinfopath-kendo.js',
-          dest: 'docs/noinfopath-kendo.md',
-          start: ['/**', '/*']
-        }
-      },
-      noui: {
-        options: {
-          src: 'src/noinfopath-ui.js',
-          dest: 'docs/noinfopath-ui.md',
-          start: ['/**', '/*']
+      external: {                                 // Task
+        options: {                                // Options
+          src: 'test/src.js',                          // Source Location  
+          dest: 'external.md',                    // Destination Location
+          start: ['/*']                           // How the code block starts.
         }
       }
     },

@@ -1,6 +1,6 @@
 /*
  * grunt-nodocs
- * @version 0.0.7
+ * @version 0.0.8
  *
  * Copyright (c) 2015 The NoInfoPath Group, llc.
  * Licensed under the MIT license.
