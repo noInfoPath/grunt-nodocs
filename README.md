@@ -43,17 +43,17 @@ External:
 */
 ```
 
-Code Sample:
+Default Code Sample:
 
 ```js
 /**
-  # This is an internal comment - All comments in a piece of code(For internal purposes)
+  # This is an internal comment - For internal use.
   # noDocs Markdown Text
 
   ## Isn't this amazing?
 */
 noDocsInternal fucntion(){
-	//Do Work
+  //Do Work
 }
 
 /*
@@ -112,6 +112,7 @@ Starting line of comment block. Can be used to distinguish comments that are mea
 ```
 
 # Release History:
+ - 2015-06-29 v0.0.7 Removed outer for loop to check for starting comment markers. Now checks against hash to write comments in the correct oder.
  - 2015-06-24 v0.0.6 Made option:start an array again to allow for multiple sweeps of the code instead of multiple tasks and updated documentation
  - 2015-06-23 v0.0.5 Updated documentation...words can be hard.
  - 2015-06-23 v0.0.4 Updated bugs in example config

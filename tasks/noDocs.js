@@ -1,9 +1,8 @@
 /*
  * grunt-nodocs
- * @version 0.0.6
- * https://github.com/Ryan/temp
+ * @version 0.0.7
  *
- * Copyright (c) 2015 ryeguyimg
+ * Copyright (c) 2015 The NoInfoPath Group, llc.
  * Licensed under the MIT license.
  */
 
@@ -36,48 +35,57 @@ module.exports = function(grunt) {
         noTableContents = "# Table Of Contents \n",
         noBuckets = {};
 
+    var noHashyHash = {};
+
+    for(var i in noStart){
+      noHashyHash[noStart[i]] = noStart[i];
+    }
+
+    console.log(noHashyHash);
+
     for(var b in noContents){
       noBuckets[noContents[b].slice(1)] = [];
     }
 
-    for(var i in noStart) {
-      for(var l in noContent) {
-        var line;
+    for(var l in noContent) {
+      var line;
 
-        //Because we are trimming white space from each line, if we 
-        //find a blank link we will still trim it, but insert a newline
-        //for markdown purposes.
-        if(noContent[l].trim() !== ""){
-          line = noContent[l].trim();
-        } else {
-          line = "\n";
-        }
+      //Because we are trimming white space from each line, if we 
+      //find a blank link we will still trim it, but insert a newline
+      //for markdown purposes.
+      if(noContent[l].trim() !== ""){
+        line = noContent[l].trim();
+      } else {
+        line = "\n";
+      }
 
-        //Will check each line against the user defined start syntax to
-        //determine when to start recording the comment blocks and filters
-        //out all code that has been written. 
-        if(line === noStart[i]) {
-          noIsWriting = true;
-        }
+      //Will check each line against the user defined start syntax to
+      //determine when to start recording the comment blocks and filters
+      //out all code that has been written.
 
-        //Will check each line against a pre-defined noEnd(*/) syntatx to
-        //determine when to stop writing out lines of text...aka comment block
-        //is finished.
-        if(line === noEnd) {
-          noIsWriting = false;
-          noDoc = noDoc + noLine;
-        }
+      //console.log(noHashyHash[line]);
 
-        if(noIsWriting){
-          for(var t in noTableArray){
-            if(line.indexOf(noTableArray[t]) > -1){
-              //Push all headers onto it's respected hash defined by the user
-              noBuckets[noTableArray[t].slice(1)].push(line.slice(noTableArray[t].length));
-            }
+      if(line === noHashyHash[line]) {
+        noIsWriting = true;
+      }
+
+      //Will check each line against a pre-defined noEnd(*/) syntatx to
+      //determine when to stop writing out lines of text...aka comment block
+      //is finished.
+      if(line === noEnd) {
+        noIsWriting = false;
+        noDoc = noDoc + noLine;
+      }
+
+      if(noIsWriting){
+        for(var t in noTableArray){
+          if(line.indexOf(noTableArray[t]) > -1){
+            //Push all headers onto it's respected hash defined by the user
+            noBuckets[noTableArray[t].slice(1)].push(line.slice(noTableArray[t].length));
           }
-          if(line.indexOf(noStart[i]) === -1){
-            noDoc = noDoc + line + noLine;
-          }
+        }
+        if((line.indexOf(noStart[i]) === -1) && (line.charAt(0) !== "@")){
+          noDoc = noDoc + line + noLine;
         }
       }
     }
@@ -91,8 +99,8 @@ module.exports = function(grunt) {
         noTableContents = noTableContents + bucket[b] + noLine;
       }
     }
-    
     //Write contents to the user's destination
+    //grunt.file.write("docs/tableofcontents.md",noTableContents);
     grunt.file.write(noDest,noDoc);
   };
 
@@ -101,7 +109,7 @@ module.exports = function(grunt) {
     //Grab all options specified by the user
     var options = this.options();
 
-    //Uses specified Source(src), Destination(dest), and Starting comment syntax(start)
+    //User specified Source(src), Destination(dest), Starting comment syntax(start), Starting @ syntax(tableofconents) 
     noDocs(options.src, options.dest, options.start, options.tableofcontents);
   });
 };

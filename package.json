@@ -1,15 +1,15 @@
 {
   "name": "grunt-nodocs",
   "description": "A way to scan files for markdown formatted comments and export to seperate markdown file.",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "main": "noDocs.js",
   "author": {
-    "name": "RyeGuy",
+    "name": "Ryan Platt",
     "email": "ryan@imginconline.com"
   },
   "repository": {
     "type": "git",
-    "url": "https://gitlab.imginconline.com/grunt/grunt-nodocs.git"
+    "url": "https://github.com/noInfoPath/grunt-nodocs.git"
   },
   "licenses": [
     {

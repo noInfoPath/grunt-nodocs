@@ -2,3 +2,7 @@ node_modules
 npm-debug.log
 test.js
 test.md
+src
+test
+docs
+.DS_Store

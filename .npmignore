@@ -3,3 +3,7 @@ npm-debug.log
 test.js
 test.md
 .gitignore
+src
+test
+docs
+.DS_Store

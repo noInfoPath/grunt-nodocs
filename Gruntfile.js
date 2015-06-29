@@ -2,7 +2,7 @@
  * grunt-nodocs
  * 
  *
- * Copyright (c) 2015 IMG
+ * Copyright (c) 2015 The NoInfoPath Group, llc.
  * Licensed under the MIT license.
  */
 
@@ -15,12 +15,25 @@ module.exports = function(grunt) {
 
     // Configuration to be run (and then tested).
     noDocs: {
-      internal: {
+      nodata: {
         options: {
-          src: 'test.js',
-          dest: 'test.md',
-          start: ['/**', '/*'],
-          tableofcontents: ['@Class','@Function']
+          src: 'src/noinfopath-data.js',
+          dest: 'docs/noinfopath-data.md',
+          start: ['/**', '/*']
+        }
+      },
+      nokendo: {
+        options: {
+          src: 'src/noinfopath-kendo.js',
+          dest: 'docs/noinfopath-kendo.md',
+          start: ['/**', '/*']
+        }
+      },
+      noui: {
+        options: {
+          src: 'src/noinfopath-ui.js',
+          dest: 'docs/noinfopath-ui.md',
+          start: ['/**', '/*']
         }
       }
     },
