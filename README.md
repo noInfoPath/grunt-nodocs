@@ -13,7 +13,7 @@ grunt.loadNpmTasks('grunt-nodocs');
 ```
 
 ## noDocs Task
-Run this task with the `grunt noDocs` command.
+Run this task with the `grunt nodocs` command.
 
 noDocs fills the need for a simple tasks, to grab comments out of a piece of code and turn into a markdown file. It's simple and can be done by hand, but what happens when you code is 1000+ lines long?
 
@@ -95,7 +95,7 @@ Starting line of comment block. Can be used to distinguish comments that are mea
 
 ```js
   grunt.initConfig({
-    noDocs: {
+    nodocs: {
       internal: {                                 // Task
         options: {                                // Options
           src: 'src.js',                          // Source Location  
@@ -117,6 +117,7 @@ Starting line of comment block. Can be used to distinguish comments that are mea
 ```
 
 # Release History:
+ - 2015-06-29 v0.0.10 Words are still hard...spelling mistakes
  - 2015-06-29 v0.0.9 Refactored code for better self-documenting/human readable code. Fixed a bug with trimming each line(in case of code blocks and other formatting techniques).
  - 2015-06-29 v0.0.8 File rename
  - 2015-06-29 v0.0.7 Removed outer for loop to check for starting comment markers. Now checks against hash to write comments in the correct order.
