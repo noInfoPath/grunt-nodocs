@@ -14,19 +14,12 @@ module.exports = function(grunt) {
   grunt.initConfig({
 
     // Configuration to be run (and then tested).
-    noDocs: {
+    nodocs: {
       internal: {                                 // Task
         options: {                                // Options
-          src: 'test/src.js',                          // Source Location  
-          dest: 'internal.md',                    // Destination Location
+          src: 'test/test.js',                    // Source Location  
+          dest: 'test/test.md',                   // Destination Location
           start: ['/*','/**']                     // How the code block starts.
-        }
-      },
-      external: {                                 // Task
-        options: {                                // Options
-          src: 'test/src.js',                          // Source Location  
-          dest: 'external.md',                    // Destination Location
-          start: ['/*']                           // How the code block starts.
         }
       }
     },

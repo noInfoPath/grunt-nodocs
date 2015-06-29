@@ -1,6 +1,6 @@
 /*
  * grunt-nodocs
- * @version 0.0.8
+ * @version 0.0.9
  *
  * Copyright (c) 2015 The NoInfoPath Group, llc.
  * Licensed under the MIT license.
@@ -23,88 +23,74 @@ module.exports = function(grunt) {
 
   function noDocs(noSrc, noDest, noStart, noContents){
 
-    var noRead = grunt.file.read(noSrc);
+    //Reading in file defined by the user
+    var readInFile = grunt.file.read(noSrc);
 
-    var noContent = noRead.split("\n"),
-        noDoc = "",
-        noEnd = "*/",
-        noIsWriting = false,
-        noLine = "\n",
+    var newLine = "\n",
+        markdown = "",
+        currentMarker = "",
+        endMarker = "*/",
+        isWriting = false,
         noTable = "",
         noTableArray = noContents,
-        noTableContents = "# Table Of Contents \n",
+        lines = readInFile.split(newLine),
+        noTableContents = "# Table Of Contents " + newLine,
         noBuckets = {};
 
     var noHashyHash = {};
 
+    //Turns user defined array of starting comments into a hash table 
     for(var i in noStart){
       noHashyHash[noStart[i]] = noStart[i];
     }
 
-    console.log(noHashyHash);
-
-    for(var b in noContents){
-      noBuckets[noContents[b].slice(1)] = [];
-    }
-
-    for(var l in noContent) {
-      var line;
+    for(var l in lines) {
+      var line = lines[l],
+          trimmedLine = line.trim(),
+          startOfLine = 0;
 
       //Because we are trimming white space from each line, if we 
       //find a blank link we will still trim it, but insert a newline
       //for markdown purposes.
-      if(noContent[l].trim() !== ""){
-        line = noContent[l].trim();
+      if(trimmedLine === ""){
+        line = newLine;
       } else {
-        line = "\n";
+        line = trimmedLine;
       }
+
+      //Index of comment *
+      startOfLine = line.indexOf("*") + 2;
 
       //Will check each line against the user defined start syntax to
       //determine when to start recording the comment blocks and filters
       //out all code that has been written.
+      currentMarker = noHashyHash[line];
 
-      //console.log(noHashyHash[line]);
+      isWriting = isWriting || !!currentMarker;
 
-      if(line === noHashyHash[line]) {
-        noIsWriting = true;
-      }
-
-      //Will check each line against a pre-defined noEnd(*/) syntatx to
+      //Will check each line against a pre-defined endMarker(*/) syntatx to
       //determine when to stop writing out lines of text...aka comment block
       //is finished.
-      if(line === noEnd) {
-        noIsWriting = false;
-        noDoc = noDoc + noLine;
+      if(line === endMarker) {
+        isWriting = false;
+        markdown = markdown + newLine;
       }
 
-      if(noIsWriting){
-        for(var t in noTableArray){
-          if(line.indexOf(noTableArray[t]) > -1){
-            //Push all headers onto it's respected hash defined by the user
-            noBuckets[noTableArray[t].slice(1)].push(line.slice(noTableArray[t].length));
+      if(isWriting){
+        if((line.indexOf(currentMarker) === -1) && (line[0] !== "@") && (line[0] !== "/")){
+          if(startOfLine === 2){
+            line = line.substr(startOfLine);
           }
-        }
-        if((line.indexOf(noStart[i]) === -1) && (line.charAt(0) !== "@")){
-          noDoc = noDoc + line + noLine;
+            markdown = markdown + line + newLine;
         }
       }
     }
 
-    for (var bi in noBuckets){
-      var bucket = noBuckets[bi];
-
-      noTableContents = noTableContents + bi + noLine;
-
-      for (var b in bucket) {
-        noTableContents = noTableContents + bucket[b] + noLine;
-      }
-    }
     //Write contents to the user's destination
-    //grunt.file.write("docs/tableofcontents.md",noTableContents);
-    grunt.file.write(noDest,noDoc);
+    grunt.file.write(noDest,markdown);
   };
 
-  grunt.registerMultiTask('noDocs', 'The best Grunt plugin ever.', function() {
+  grunt.registerMultiTask('nodocs', 'The best Grunt plugin ever.', function() {
     
     //Grab all options specified by the user
     var options = this.options();
