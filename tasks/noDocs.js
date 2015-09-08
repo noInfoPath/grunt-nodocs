@@ -1,101 +1,150 @@
 /*
  * grunt-nodocs
- * @version 0.0.10
+ * @version 0.0.11
  *
  * Copyright (c) 2015 The NoInfoPath Group, llc.
  * Licensed under the MIT license.
  */
-
-'use strict';
-
 module.exports = function(grunt) {
+
+  'use strict';
   /*
-
-  ## Parameters
-
-  |Name|Type|Description|
-  |----|----|-----------|
-  |noSrc|string|Text source that is broken up by new lines(\n)|
-  |noDest|string|User defined directory for newly created markdown file|
-  |noStart|[string]|User defined array of starting comment syntax|
-  |noContents|[string]|User defined array of @ to record table of contents|
+   * @function noDocs
+   *
+   * ## Parameters
+   *
+   * |Name|Type|Description|
+   * |----|----|-----------|
+   * |src|string|Text source that is broken up by new lines(\n)|
+   * |dest|string|User defined directory for newly created markdown file|
+   * |start|[string]|User defined array of starting comment syntax|
+   * |tableOfContentsTags|[string]|User defined array of @ to record table of contents|
   */
 
-  function noDocs(noSrc, noDest, noStart, noContents){
+  function noDocs(src, dest, start, tableOfContentsTags){
 
-    //Reading in file defined by the user
-    var readInFile = grunt.file.read(noSrc);
+    var markdown = "";
 
-    var newLine = "\n",
-        markdown = "",
-        currentMarker = "",
-        endMarker = "*/",
-        isWriting = false,
-        noTable = "",
-        noTableArray = noContents,
-        lines = readInFile.split(newLine),
-        noTableContents = "# Table Of Contents " + newLine,
-        noBuckets = {};
+    grunt.file.expand(src).forEach(function(dir){
+        /*
+         *
+         * Reading in file defined by the user
+        */
+        var readInFile = grunt.file.read(dir);
+        /*
+         * |Name|Type|Description|
+         * |----|----|-----------|
+         * |newLine|string|A New Line Constant|
+         * |markdown|String|The document that is being written with all comments pulled from the user's code|
+         * |currentMarker||
+         * |endMarker|String|Typical code block ending syntax as a constant|
+         * |isWriting|Boolean|Whether to write out a line to the document or not..aka whether the line is a comment or not|
+         * |noTable|||
+         * |noTableArray|||
+         * |lines|||
+         * |noTableContents|||
+         * |noBuckets|||
+        */
+        var newLine = "\n",
+            currentMarker = "",
+            endMarker = "*/",
+            isWriting = false,
+            lines = readInFile.split(newLine);
+            /* Will be used when making table of comments
+             *
+             * noTable = "",
+             * noTableArray = tableOfContentsTags,
+             *
+             * noTableContents = "# Table Of Contents " + newLine,
+             * noBuckets = {};
+            */
+        /*
+         * |Name|Type|Description|
+         * |----|----|-----------|
+         * |noHashyHash|object|Used to convert user defined starting comment lines to a has table|
+        */
+        var noHashyHash = {};
 
-    var noHashyHash = {};
-
-    //Turns user defined array of starting comments into a hash table 
-    for(var i in noStart){
-      noHashyHash[noStart[i]] = noStart[i];
-    }
-
-    for(var l in lines) {
-      var line = lines[l],
-          trimmedLine = line.trim(),
-          startOfLine = 0;
-
-      //Because we are trimming white space from each line, if we 
-      //find a blank link we will still trim it, but insert a newline
-      //for markdown purposes.
-      if(trimmedLine === ""){
-        line = newLine;
-      } else {
-        line = trimmedLine;
-      }
-
-      //Index of comment *
-      startOfLine = line.indexOf("*") + 2;
-
-      //Will check each line against the user defined start syntax to
-      //determine when to start recording the comment blocks and filters
-      //out all code that has been written.
-      currentMarker = noHashyHash[line];
-
-      isWriting = isWriting || !!currentMarker;
-
-      //Will check each line against a pre-defined endMarker(*/) syntatx to
-      //determine when to stop writing out lines of text...aka comment block
-      //is finished.
-      if(line === endMarker) {
-        isWriting = false;
-        markdown = markdown + newLine;
-      }
-
-      if(isWriting){
-        if((line.indexOf(currentMarker) === -1) && (line[0] !== "@") && (line[0] !== "/")){
-          if(startOfLine === 2){
-            line = line.substr(startOfLine);
-          }
-            markdown = markdown + line + newLine;
+        /*
+         * Turns user defined array of starting comments into a hash table
+        */
+        for(var i in start){
+          noHashyHash[start[i]] = start[i];
         }
-      }
-    }
 
-    //Write contents to the user's destination
-    grunt.file.write(noDest,markdown);
-  };
+        for(var l in lines) {
+          var line = lines[l],
+              trimmedLine = line.trim(),
+              startOfLine = 0;
+
+          /*
+           * Because we are trimming white space from each line, if we
+           * find a blank link we will still trim it, but insert a newline
+           * for markdown purposes.
+          */
+          if(trimmedLine === ""){
+            line = newLine;
+          } else {
+            line = trimmedLine;
+          }
+
+          /*
+           * Index of comment *
+          */
+          startOfLine = line.indexOf("*") + 2;
+
+          /*
+           * Will check each line against the user defined start syntax to
+           * determine when to start recording the comment blocks and filters
+           * out all code that has been written.
+          */
+          currentMarker = noHashyHash[line];
+
+          isWriting = isWriting || !!currentMarker;
+
+          /*
+           * Will check each line against a pre-defined endmarker syntax to
+           * determine when to stop writing out lines of text...aka comment block
+           * is finished.
+          */
+          if(line === endMarker) {
+            isWriting = false;
+            markdown = markdown + newLine;
+          }
+
+          /*
+           * Once isWriting is true, we then make sure that we are actually at a
+           * comment block, we are not writing the the first line of the comment
+           * block
+          */
+          if(isWriting){
+            if((line.indexOf(currentMarker) === -1) && (line[0] !== "@") && (line[0] !== "/")){
+              if(startOfLine === 2){
+                line = line.substr(startOfLine);
+              }
+                markdown = markdown + line + newLine;
+            }
+          }
+        }
+
+        /*
+         * Write contents(markdown) to the user's destination(dest)
+        */
+        grunt.file.write(dest,markdown);
+    });
+  }
 
   grunt.registerMultiTask('nodocs', 'The best Grunt plugin ever.', function() {
-    
-    //Grab all options specified by the user
-    var options = this.options();
 
-    //User specified Source(src), Destination(dest), Starting comment syntax(start), Starting @ syntax(tableofconents) 
-    noDocs(options.src, options.dest, options.start, options.tableofcontents);
+      /*
+       * Grab all options specified by the user
+       * var options = this.options();
+      */
+      var options = this.options();
+
+      /*
+       * User specified Source(src), Destination(dest), Starting comment syntax(start), Starting @ syntax(tableofconents)
+      */
+      noDocs(options.src, options.dest, options.start, options.tableofcontents);
   });
 };

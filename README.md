@@ -1,6 +1,6 @@
-# grunt-noDocs
+# grunt-nodocs
 
-### Installation 
+### Installation
 
 ```
 npm install grunt-nodocs --save-dev
@@ -12,27 +12,27 @@ npm install grunt-nodocs --save-dev
 grunt.loadNpmTasks('grunt-nodocs');
 ```
 
-## noDocs Task
+## nodocs Task
 Run this task with the `grunt nodocs` command.
 
-noDocs fills the need for a simple tasks, to grab comments out of a piece of code and turn into a markdown file. It's simple and can be done by hand, but what happens when you code is 1000+ lines long?
+nodocs fills the need for a simple task, to grab comments out of a piece of code and turn them into a markdown file. It's simple and can be done by hand, but what happens when your code is 1000+ lines long?
 
-With markdown being the sole method of writing proper documentation, we assume and encourage the user to write their comments in markdown fashion.
+Also, with markdown being the sole method of writing proper documentation, we assume and encourage the user to write their comments in markdown fashion.
 
-### Comment Syntax Requirement
- - Comments must at least start and end with `/*`, `*/`.
+### Comment Syntax Requirements:
+ - Comments must at least start and end with the conventional block comment tags `/*`, `*/`.
  - Each line must start with an `*`.
  - There must be a single space between the `*` and the start of your comments.
 
 ```js
 /*
-*
-* Comments go between the starting and ending comment block lines
-*
+ *
+ * Comments go between the starting and ending comment block lines
+ *
 */
 ```
 
-noDocs' algorithm also allows for the user to distinguish between internal comments and external comments. Below we give an example of how to accomplish this. By simply adding another character to the end of the starting comment line you can distinguish between what should be seen by the outside world and what should be seen by everyone.
+nodocs' algorithm also allows for the user to distinguish between internal comments and external comments. Below we give an example of how to accomplish this. By simply adding another character to the end of the starting comment line you can distinguish between what should only be seen internally and what can be seen by the outside world.
 
 Internal:
 ```
@@ -59,7 +59,7 @@ External:
  *
  * ## Isn't this amazing?
 */
-noDocsInternal fucntion(){
+noDocsInternal function(){
   //Do Work
 }
 
@@ -69,7 +69,7 @@ noDocsInternal fucntion(){
  *
  * ## Isn't this amazing?
 */
-noDocsExternal fucntion(){
+noDocsExternal function(){
   //Do Work
 }
 ```
@@ -77,7 +77,7 @@ noDocsExternal fucntion(){
 #### Options
 
 ##### src
-Type: `String`
+Type: `[String]`
 
 The file path of the source file.
 
@@ -91,32 +91,69 @@ Type: `[String]`
 
 Starting line of comment block. Can be used to distinguish comments that are meant for internal use and comments for external use
 
-## Example:
+## Example - Basic:
 
 ```js
   grunt.initConfig({
     nodocs: {
       internal: {                                 // Task
         options: {                                // Options
-          src: 'src.js',                          // Source Location  
+          src: 'src/src.js',                      // Source Location  
           dest: 'internal.md',                    // Destination Location
           start: ['/*','/**']                     // How the code block starts.
         }
       },
       external: {                                 // Task
         options: {                                // Options
-          src: 'src.js',                          // Source Location  
+          src: 'src/src.js',                      // Source Location  
           dest: 'external.md',                    // Destination Location
           start: ['/*']                           // How the code block starts.
         }
       }
     }
   });
-  
+
+  loadNpmTasks('grunt-nodocs');
+```
+
+## Example - Wildcard:
+
+```js
+  grunt.initConfig({
+    nodocs: {
+      internal: {                                 // Task
+        options: {                                // Options
+          src: 'src/*.js',                        // Source Location  
+          dest: 'internal.md',                    // Destination Location
+          start: ['/*','/**']                     // How the code block starts.
+        }
+      }
+    }
+  });
+
+  loadNpmTasks('grunt-nodocs');
+```
+
+## Example - Negated Files:
+
+```js
+  grunt.initConfig({
+    nodocs: {
+      internal: {                                 // Task
+        options: {                                // Options
+          src: ['src/*', '!src/*.html'],          // Source Location  
+          dest: 'internal.md',                    // Destination Location
+          start: ['/*','/**']                     // How the code block starts.
+        }
+      }
+    }
+  });
+
   loadNpmTasks('grunt-nodocs');
 ```
 
 # Release History:
+ - 2015-09-08 v0.0.11 Integrated wildcard functionality into src location option. Users can now specify a directory with multiple javascript files.
  - 2015-06-29 v0.0.10 Words are still hard...spelling mistakes
  - 2015-06-29 v0.0.9 Refactored code for better self-documenting/human readable code. Fixed a bug with trimming each line(in case of code blocks and other formatting techniques).
  - 2015-06-29 v0.0.8 File rename
@@ -125,5 +162,5 @@ Starting line of comment block. Can be used to distinguish comments that are mea
  - 2015-06-23 v0.0.5 Updated documentation...words can be hard.
  - 2015-06-23 v0.0.4 Updated bugs in example config
  - 2015-06-23 v0.0.3 Removed outer for loop for [start] and changed [start] to just a start string
- - 2015-06-22 v0.0.2 Fixed a bug with checking for start of comment block 
+ - 2015-06-22 v0.0.2 Fixed a bug with checking for start of comment block
  - 2015-06-22 v0.0.1 Initial Release
