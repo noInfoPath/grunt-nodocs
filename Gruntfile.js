@@ -10,11 +10,15 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     nodocs: {
-        test: {                                       // Task
-            options: {                                // Options
-                src: ['test/*', '!test/*.html'],      // Source Location
-                dest: 'test/test.md',                 // Destination Location
-                start: ['/*','/**']                   // How the code block starts.
+        test: {										// Task
+            options: {								// Options
+                src: ['test/*.js'],					// Source Location
+                dest: 'test/test.md',				// Destination Location
+                start: ['/*','/**'],				// How the code block starts.
+				multiDocs: {						// Multiple README Files for each file read in
+					multiFiles: true,
+					dest: 'test/'
+				}
             }
         }
     },
