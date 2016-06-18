@@ -24,12 +24,10 @@ module.exports = function(grunt) {
 
 		var toc = "",
 			tocCounter = 1,
-            counter = 1,
-			ops = options;
-
+			ops = options,
+			markdown = "";
 
 		grunt.file.expand(ops.src).forEach(function(dir) {
-			var markdown = "";
 			/*
 			 *
 			 * Reading in file defined by the user
@@ -146,15 +144,15 @@ module.exports = function(grunt) {
 			/*
 			 * Write to multiple markdown files if true
 			 */
-			if(options.multiDocs.multiFiles){
+			if(options.multiDocs && options.multiDocs.multiFiles && options.multiDocs.dest){
 				grunt.file.write(options.multiDocs.dest + fileName, markdown);
-				counter++;
+				//empty markdown variable for another page
+				markdown = "";
 			}
 			/*
 			 * Write contents(markdown) to the user's destination(dest)
 			 */
-			if(options.multiDocs.multiFiles === false){
-				console.log("false");
+			if(!options.multiDocs || !options.multiDocs.multiFiles || options.multiDocs.multiFiles === false){
 				grunt.file.write(ops.dest, markdown);
 			}
 		});
