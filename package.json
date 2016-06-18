@@ -1,7 +1,7 @@
 {
   "name": "grunt-nodocs",
   "description": "A way to scan files for markdown formatted comments and export to seperate markdown file.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "noDocs.js",
   "author": {
     "name": "Ryan Platt",
