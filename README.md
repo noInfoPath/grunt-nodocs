@@ -193,7 +193,7 @@ grunt.initConfig({
 });
 ```
 # Release History:
-
+- 2016-06-13 v1.0.1 Fixed a few bugs in the case of a user not specifying certain options. Also added in more checks to make sure options are present. Fixed issues with multi-file and single file options.
 - 2016-06-13 v1.0.0 Added multi-file options. One markdown file generated for every js file specified. Minor cleanup to code. Added statistics badge.
 - 2015-09-08 v0.0.11 Integrated wildcard functionality into src location option. Users can now specify a directory with multiple javascript files.
 - 2015-06-29 v0.0.10 Words are still hard...spelling mistakes
