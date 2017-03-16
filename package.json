@@ -1,38 +1,38 @@
 {
-  "name": "grunt-nodocs",
-  "description": "A way to scan files for markdown formatted comments and export to seperate markdown file.",
-  "version": "1.0.2",
-  "main": "noDocs.js",
-  "author": {
-    "name": "Ryan Platt",
-    "email": "ryan@imginconline.com"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/noInfoPath/grunt-nodocs.git"
-  },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "/blob/master/LICENSE-MIT"
+	"name": "grunt-nodocs",
+	"description": "A way to scan files for markdown formatted comments and export to seperate markdown file.",
+	"version": "1.0.4",
+	"main": "noDocs.js",
+	"author": {
+		"name": "Ryan Platt",
+		"email": "info@imginconline.com"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/noInfoPath/grunt-nodocs.git"
+	},
+	"licenses": [
+		{
+			"type": "MIT",
+			"url": "/blob/master/LICENSE-MIT"
     }
   ],
-  "engines": {
-    "node": ">= 0.8.0"
-  },
-  "scripts": {
-    "test": "grunt test"
-  },
-  "devDependencies": {
-    "grunt": "~0.4.5",
-    "grunt-bumpup": "^0.6.2",
-    "grunt-version": "^1.0.0"
-  },
-  "peerDependencies": {
-    "grunt": ">=0.4.0"
-  },
-  "keywords": [
+	"engines": {
+		"node": ">= 0.8.0"
+	},
+	"scripts": {
+		"test": "grunt test"
+	},
+	"devDependencies": {
+		"grunt": "^0.4.5",
+		"grunt-bumpup": "^0.6.2",
+		"grunt-version": "^1.0.0"
+	},
+	"peerDependencies": {
+		"grunt": ">=0.4.0"
+	},
+	"keywords": [
     "gruntplugin"
   ],
-  "dependencies": {}
+	"dependencies": {}
 }

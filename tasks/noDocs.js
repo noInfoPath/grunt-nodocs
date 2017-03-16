@@ -1,6 +1,6 @@
 /*
  * grunt-nodocs
- * @version 1.0.2
+ * @version 1.0.4
  *
  * Copyright (c) 2015 The NoInfoPath Group, llc.
  * Licensed under the MIT license.
@@ -145,7 +145,9 @@ module.exports = function(grunt) {
 			 * Write to multiple markdown files if true
 			 */
 			if(options.multiDocs && options.multiDocs.multiFiles && options.multiDocs.dest){
+				grunt.log.write("Created " + fileName);
 				grunt.file.write(options.multiDocs.dest + fileName, markdown);
+				grunt.log.ok();
 				//empty markdown variable for another page
 				markdown = "";
 			}
