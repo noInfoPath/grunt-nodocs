@@ -127,9 +127,9 @@ module.exports = function (grunt) {
 				 * block
 				 */
 				if (isWriting) {
-					if ((line.indexOf(currentMarker) === -1) && (line[0] !== "@") && (line[0] !== "/")) {
+					if ((line.indexOf(currentMarker) === -1) && (line[0] !== "/")) {
 						if (startOfLine === 2) {
-							if (line && line[0] === "*" && line[2] !== "@") {
+							if (line && line[0] === "*") {
 								line = line.substr(startOfLine);
 								markdown = markdown + line + newLine;
 							}
