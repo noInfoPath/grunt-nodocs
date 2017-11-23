@@ -5,7 +5,7 @@
  * Copyright (c) 2015 The NoInfoPath Group, llc.
  * Licensed under the MIT license.
  */
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
 	'use strict';
 	/*
@@ -27,7 +27,7 @@ module.exports = function(grunt) {
 			ops = options,
 			markdown = "";
 
-		grunt.file.expand(ops.src).forEach(function(dir) {
+		grunt.file.expand(ops.src).forEach(function (dir) {
 			/*
 			 *
 			 * Reading in file defined by the user
@@ -36,7 +36,7 @@ module.exports = function(grunt) {
 				pathArray = dir.split("/"),
 				fileName = "";
 
-			if(pathArray.length > 0){
+			if (pathArray.length > 0) {
 				fileName = pathArray[pathArray.length - 1];
 				fileName = fileName.replace(".js", ".md");
 			}
@@ -129,14 +129,15 @@ module.exports = function(grunt) {
 				if (isWriting) {
 					if ((line.indexOf(currentMarker) === -1) && (line[0] !== "@") && (line[0] !== "/")) {
 						if (startOfLine === 2) {
-                            if(line && line[0] === "*" && line[2] !== "@"){
-                                line = line.substr(startOfLine);
-                                markdown = markdown + line + newLine;
-                            } else if (line && line[2] === "@"){
-                                line = line.split("@module");
-                                toc = toc + tocCounter + ":" + line[1] + newLine;
-                                tocCounter++;
-                            }
+							if (line && line[0] === "*" && line[2] !== "@") {
+								line = line.substr(startOfLine);
+								markdown = markdown + line + newLine;
+							}
+							// else if (line && line[2] === "@") {
+							// 	line = line.split("@module");
+							// 	toc = toc + tocCounter + ":" + line[1] + newLine;
+							// 	tocCounter++;
+							// }
 						}
 					}
 				}
@@ -144,7 +145,7 @@ module.exports = function(grunt) {
 			/*
 			 * Write to multiple markdown files if true
 			 */
-			if(options.multiDocs && options.multiDocs.multiFiles && options.multiDocs.dest){
+			if (options.multiDocs && options.multiDocs.multiFiles && options.multiDocs.dest) {
 				grunt.log.write("Created " + fileName);
 				grunt.file.write(options.multiDocs.dest + fileName, markdown);
 				grunt.log.ok();
@@ -154,13 +155,13 @@ module.exports = function(grunt) {
 			/*
 			 * Write contents(markdown) to the user's destination(dest)
 			 */
-			if(!options.multiDocs || !options.multiDocs.multiFiles || options.multiDocs.multiFiles === false){
+			if (!options.multiDocs || !options.multiDocs.multiFiles || options.multiDocs.multiFiles === false) {
 				grunt.file.write(ops.dest, markdown);
 			}
 		});
 	}
 
-	grunt.registerMultiTask('nodocs', 'The best Grunt plugin ever.', function() {
+	grunt.registerMultiTask('nodocs', 'The best Grunt plugin ever.', function () {
 
 		/*
 		 * Grab all options specified by the user
